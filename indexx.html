@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>atrakcje w polsce</title>
+<title>Atrakcje w Polsce</title>
+<style>
+body {
+font-family: Times New Roman, serif;
+background-color: #e4d4b8;
+padding: 20px;
+}
+h1 {
+color: rgb(34, 77, 17);
+
+}
+label {
+display: block;
+margin-top: 10px;
+}
+select, textarea, button {
+margin-top: 5px;
+width: 300px;
+padding: 5px;
+}
+#wynik {
+margin-top: 20px;
+background-color: #fff;
+padding: 10px;
+border: 1px solid rgb(156, 116, 54);
+}
+
+</style>
+</head>
+<body>
+
+<h1>Atrakcje w Polsce</h1>
+
+<label for="miejsce">Region lub miejscowość:</label>
+<input type="text" id="miejsce" cols="4" rows="3">
+
+<label for="woj">Wybierz województwo:</label>
+<select id="woj">
+    <option value="Dolnośląskie">Dolnośląskie</option>
+    <option value="Kujawsko-Pomorskie">Kujawsko-Pomorskie</option>
+    <option value="Lubelskie">Lubelskie</option>
+    <option value="Lubuskie">Lubuskie</option>
+    <option value="Łódzkie">Łódzkie</option>
+    <option value="Małopolskie">Małopolskie</option>
+    <option value="Mazowieckie">Mazowieckie</option>
+    <option value="Opolskie">Opolskie</option>
+    <option value="Podkarpackie">Podkarpackie</option>
+    <option value="Podlaskie">Podlaskie</option>
+    <option value="Pomorskie">Pomorskie</option>
+    <option value="Śląskie">Śląskie</option>
+    <option value="Świętokrzyskie">Świętokrzyskie</option>
+    <option value="Warmińsko-Mazurskie">Warmińsko-Mazurskie</option>
+    <option value="Wielkopolskie">Wielkopolskie</option>
+    <option value="Zachodniopomorskie">Zachodniopomorskie</option>
+</select>
+
+<label>Typ atrakcji:</label>
+<div id="typ">
+  <label><input type="checkbox" value="Turystyczna"> Turystyczna</label>
+  <label><input type="checkbox" value="Krajobrazowa"> Krajobrazowa</label>
+  <label><input type="checkbox" value="Historyczna"> Historyczna</label>
+  <label><input type="checkbox" value="Inna"> Inna</label>
+</div>
+
+<label for="opis">Opis atrakcji:</label>
+<textarea id="opis" cols="4" rows="4" placeholder="Tutaj wpisz opis..."></textarea>
+
+<br><br>
+<button onclick="dodajAtrakcje()">Dodaj swoją atrakcję</button>
+<button onclick="wyczyscListe()">Wyczyść listę atrakcji</button>
+
+<div id="wynik"></div>
+
+<script>
+function dodajAtrakcje() {
+const woj = document.getElementById("woj").value;
+const typCheckboxy = document.querySelectorAll('#typ input[type="checkbox"]');
+let typy = [];
+typCheckboxy.forEach(cb => {
+  if (cb.checked) typy.push(cb.value);
+});
+const opis = document.getElementById("opis").value;
+const miejsce = document.getElementById("miejsce").value;
+wyczyscFormularz();
+
+function wyczyscListe() {
+document.getElementById("wynik").innerHTML = "";
+}
+
+
+if (woj === "" || typy.length === 0 || opis.trim() === "" || miejsce.trim() === "") {
+alert("Uzupełnij wszystkie pola!");
+return;
+}
+
+const tekst = `<p><strong>Województwo:</strong> ${woj}<br>
+<strong>Region/Miejscowość:</strong> ${miejsce}<br>
+<strong>Typ:</strong> ${typy.join(", ")}<br>
+<strong>Opis:</strong> ${opis}</p><hr>`;
+
+document.getElementById("wynik").innerHTML += tekst;
+wyczysc();
+}
+
+function wyczyscFormularz() {
+  document.getElementById("woj").selectedIndex = 0;
+  document.getElementById("typ").selectedIndex = 0;
+  document.getElementById("miejsce").value = "";
+  document.getElementById("opis").value = "";
+}
+
+function wyczyscListe() {
+    document.getElementById("wynik").innerHTML = "";
+  }
+
+</script>
+
+</body>
+</html>
